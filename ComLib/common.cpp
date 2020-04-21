@@ -1647,36 +1647,40 @@ mstring Int32ToIp(unsigned int addr, bool changeOrder) {
     return str;
 }
 
-mstring GetPrintStr(const char *szBuffer, int iSize, bool mulitLine)
+mstring GetPrintStr(const char *szBuffer, int iSize, bool mulitLine, bool bShowEnter)
 {
     mstring strOut;
     for (int i = 0 ; i < iSize ;)
     {
         byte letter = szBuffer[i];
-        //字符
+        // 普通打印字符
         if (letter >= 0x20 && letter <= 0x7e)
         {
             strOut += (char)letter;
             i++;
             continue;
         }
-        //汉字
-        else if (letter >= 0xb0 && letter <= 0xf7)
+        // 处理回车换行
+        else if (letter == '\r' || letter == '\n')
         {
-            if (i < iSize)
-            {
-                byte next = szBuffer[i + 1];
-                if (next >= 0xa1 && next <= 0xfe)
-                {
-                    strOut += (char)letter;
-                    strOut += (char)next;
-                    i += 2;
-                    continue;
+            bool bAppend = false;
+            if (bShowEnter) {
+                bAppend = true;
+                if (letter == '\r') {
+                    strOut += "\\r";
+                } else if (letter == '\n') {
+                    strOut += "\\n";
                 }
             }
-        } else if (mulitLine && (letter == '\r' || letter == '\n' || letter == '\t'))
-        {
-            strOut += (char)letter;
+
+            if (mulitLine && letter == '\n') {
+                bAppend = true;
+                strOut += (char)letter;
+            }
+
+            if (!bAppend) {
+                strOut += '.';
+            }
         } else {
             //不可打印
             strOut += '.';

@@ -309,7 +309,7 @@ void CStreamDlg::PrintHex(const mstring &desc, const mstring &content) {
         }
 
         showData += " ";
-        showData += GetPrintStr(curLine.c_str(), curLine.size(), false);
+        showData += GetPrintStr(curLine.c_str(), curLine.size(), false, false);
         showData += "\n";
     }
     mShowView.PushToCache(desc, showData);
@@ -362,7 +362,7 @@ void CStreamDlg::LoadPacketSet(int type) {
             } else {
                 mShowView.PushToCache(desc, "\n");
             }
-            mstring show1 = GetPrintStr(showData.c_str(), showData.size());
+            mstring show1 = GetPrintStr(showData.c_str(), showData.size(), true, true);
             mShowView.PushToCache(desc, show1);
         }
     }

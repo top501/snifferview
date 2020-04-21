@@ -14,7 +14,7 @@ void CStreamView::InitStreamView(HWND hParent, int x, int y, int cx, int cy) {
     ShowMargin(false);
     SetCaretColour(RGB(255, 255, 255));
 
-    SetFont("Lucida Console");
+    SetFont("Courier New");
     SetCaretSize(1);
 
     SendMsg(SCI_STYLESETSIZE, STYLE_DEFAULT, 10);
