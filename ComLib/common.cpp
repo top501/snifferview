@@ -1905,7 +1905,7 @@ mstring GetStdErrorStr(DWORD dwErr)
     mstring strMsg((LPCSTR)lpMsgBuf);
     if (lpMsgBuf)
     {
-        LocalFlags(lpMsgBuf);
+        LocalFree(lpMsgBuf);
     }
     return strMsg;
 }
